@@ -4,6 +4,7 @@
  * The contents of this file are subject to the LGPL License, Version 3.0.
  *
  * Copyright (C) 2011, derivo GmbH
+ * Copyright (c) 2019 SisInf Lab, Polytechnic University of Bari
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +24,7 @@
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
  * Copyright 2011, derivo GmbH
+ * Copyright (c) 2019 SisInf Lab, Polytechnic University of Bari
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
