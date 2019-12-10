@@ -1,0 +1,5 @@
+
+description = 'OWLLink API implementation'
+dependencies {
+  compile project(':owllinkapi')
+}

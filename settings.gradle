@@ -1,0 +1,11 @@
+rootProject.name = 'owllink-matchmaking-extension'
+include ':owllinkapi'
+include ':owllinkhttpxml'
+include ':owllinkimpl'
+include ':owllinkprotege'
+include ':owllinkserver'
+include ':owllinkmatchmaking'
+
+
+
+

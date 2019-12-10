@@ -1,0 +1,6 @@
+
+description = 'OWLLink API'
+dependencies {
+    compile group: 'net.sourceforge.owlapi', name: 'owlapi-apibinding', version:'3.4.10'
+
+}

@@ -1,0 +1,34 @@
+allprojects  {
+  apply plugin: 'java'
+  group = 'it.poliba.sisinflab.swottools'
+  version = '2.0.0'
+}
+
+subprojects {
+  apply plugin: 'java'
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+  tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+  }
+
+  task packageSources(type: Jar) {
+    from sourceSets.main.allSource
+  }
+
+  repositories {
+    mavenLocal()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    maven { url "https://repo.maven.apache.org/maven2" }
+    flatDir {
+      dirs 'lib'
+    }
+  }
+  task copyToLib(type: Copy) {
+    into "$buildDir/dist"
+    from configurations.runtime
+  }
+  jar.dependsOn(copyToLib)
+
+
+}

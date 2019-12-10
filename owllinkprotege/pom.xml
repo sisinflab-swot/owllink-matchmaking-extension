@@ -1,0 +1,93 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>owllinkprotege</artifactId>
+	<packaging>bundle</packaging>
+	<name>OWLLink Protege plugin</name>
+
+	<parent>
+		<groupId>net.sourceforge.owlapi</groupId>
+		<artifactId>owllink-owlapi-parent</artifactId>
+		<version>2.0.0</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owllinkapi</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owllinkhttpxml</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.stanford.protege</groupId>
+			<artifactId>org.protege.editor.owl</artifactId>
+			<version>4.3.0</version>
+			<optional>true</optional>
+			<exclusions>
+				<exclusion>
+					<groupId>org.testng</groupId>
+					<artifactId>testng</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>protege-owlapi-extensions</artifactId>
+					<groupId>edu.stanford.protege</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>org.protege.xmlcatalog</artifactId>
+					<groupId>edu.stanford.protege</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>owlapi-distribution</artifactId>
+					<groupId>net.sourceforge.owlapi</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Creates binary distribution. -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.2.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Update-Url>https://github.com/ignazio1977/owllink-owlapi/blob/master/owllinkprotege/src/main/java/update.properties</Update-Url>
+						<Implementation-Title>OWLlink</Implementation-Title>
+						<Implementation-Version>${project.version}.${maven.build.timestamp}</Implementation-Version>
+						<Bundle-SymbolicName>org.semanticweb.owllink.protege.owllink;singleton:=true</Bundle-SymbolicName>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Bundle-Name>OWLlink HTTPXML Reasoner</Bundle-Name>
+						<Bundle-Category>protege</Bundle-Category>
+						<Bundle-Description>An OWL 2 reasoner adapter to OWLlink servers</Bundle-Description>
+						<Embed-Dependency>
+							artifactId=owllinkapi;groupId=${project.groupId};inline=true,
+							artifactId=owllinkhttpxml;groupId=${project.groupId};inline=true,
+							artifactId=owllinkimpl;groupId=${project.groupId};inline=true,
+							artifactId=owllinkserver;groupId=${project.groupId};inline=true
+						</Embed-Dependency>
+						<_exportcontents>
+							org.semanticweb.owlapi.owllink.*;-split-package:=merge-first
+						</_exportcontents>
+						<Import-Package>
+							!sun.misc,
+							!javax.annotation,
+							!com.google.inject.internal.*;resolution:=optional,
+							org.semanticweb.owlapi.*,
+							org.apache.commons.io.*;version=2.5,
+							org.apache.commons.logging.*;version=1.2,
+							*
+						</Import-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,13 @@
+
+description = 'OWLLink Protege plugin'
+dependencies {
+  compile project(':owllinkapi')
+  compile project(':owllinkhttpxml')
+    compile(group: 'edu.stanford.protege', name: 'org.protege.editor.owl', version:'4.3.0') {
+    exclude(module: 'testng')
+    exclude(module: 'protege-owlapi-extensions')
+    exclude(module: 'org.protege.xmlcatalog')
+    exclude(module: 'owlapi-distribution')
+    }
+}
+test.useTestNG()

@@ -1,0 +1,6 @@
+
+description = 'OWLLink API server side'
+dependencies {
+  compile project(':owllinkapi')
+  compile project(':owllinkimpl')
+}

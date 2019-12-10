@@ -1,0 +1,10 @@
+
+description = 'OWLLink Matchmaking extension'
+dependencies {
+  compile project(':owllinkhttpxml')
+  compile 'commons-logging:commons-logging:1.1.1'
+  testCompile group: 'junit', name: 'junit', version:'4.12'
+}
+
+
+

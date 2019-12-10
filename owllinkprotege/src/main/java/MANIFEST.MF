@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Implementation-Title: OWLlink
+Implementation-Vendor: Olaf Noppens
+Bundle-ManifestVersion: 2
+Bundle-Name: OWLlink HTTPXML Reasoner
+Bundle-SymbolicName: org.semanticweb.owllink.protege.owllink;singleton:=true
+Bundle-Category: protege
+Bundle-Description: An OWL 2 reasoner adapter to OWLlink servers
+Bundle-Vendor: Olaf Noppens
+Bundle-Version: 0.7.2
+Bundle-ClassPath: .,lib/owllink-bin.jar
+Require-Bundle: org.eclipse.equinox.registry,org.eclipse.equinox.common,org.protege.editor.core.application;bundle-version=4.1,org.protege.editor.owl;bundle-version=4.1,org.semanticweb.owl.owlapi;bundle-version=3.0
+Import-Package: org.osgi.framework,org.apache.log4j,javax.swing,javax.swing.border,javax.swing.colorchooser,javax.swing.event,javax.swing.filechooser,javax.swing.plaf,javax.swing.plaf.basic,javax.swing.plaf.metal,javax.swing.plaf.multi,javax.swing.plaf.synth,javax.swing.table,javax.swing.text,javax.swing.text.html,javax.swing.text.html.parser,javax.swing.text.rtf,javax.swing.tree,javax.swing.undo,org.w3c.dom,org.w3c.dom.bootstrap,org.w3c.dom.events,org.w3c.dom.ls,org.xml.sax,org.xml.sax.ext,org.xml.sax.helpers,javax.xml.parsers
+Update-Url: http://owllink-owlapi.svn.sourceforge.net/viewvc/owllink-owlapi/owllinkapi-owlapi-3.2/trunk/owllinkprotege/src/main/java/update.properties
