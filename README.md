@@ -21,19 +21,91 @@ The following non-standard inference services are included in the extension:
 * Concept Difference [2]
 * Concept Covering [1]
 
-#### Library usage
-You have to clone the 
+## Usage
 
-The OWLlinkMatchmakingReasonerBridge class must be implemented (overriding all methods declared by OWLlinkMatchmakingReasonerBridgeInterface)
+The extension can be built and run on **Windows**, **macOS** and **Linux** and can be launched via its [command line interface]
+
+### Building
+
+You can build extension via the included [Gradle](https://gradle.org) wrapper. 
+`git clone` this project and the run `./gradlew jar`
+
+#### Library usage
+
+The OWLlinkMatchmakingReasonerBridge class must be extended, overriding all methods declared by OWLlinkMatchmakingReasonerBridgeInterface. 
+
 ```java
-public interface OWLlinkMatchmakingReasonerBridgeInterface {
-    void getAbduction(KBRequestWithTwoExpressionOrIndividuals request);
-    void getBonus(KBRequestWithTwoExpressionOrIndividuals request);
-    void getDifference(KBRequestWithTwoExpressionOrIndividuals request);
-    void getContraction(KBRequestWithTwoExpressionOrIndividuals request);
-    void getCovering(GetCovering request);
+public class MyReasonerOWLlinkBridge extends OWLlinkMatchmakingReasonerBridge{
+    void getAbduction(KBRequestWithTwoExpressionOrIndividuals request){}
+    void getBonus(KBRequestWithTwoExpressionOrIndividuals request){}
+    void getDifference(KBRequestWithTwoExpressionOrIndividuals request){}
+    void getContraction(KBRequestWithTwoExpressionOrIndividuals request){}
+    void getCovering(GetCovering request){}
 }
 
+```
+Then the OWLlinkHTTPXMLServer interface must be implemented as follows. 
+```java
+public class MyReasonerServerFactory implements OWLlinkServerFactory {
+
+    public OWLlinkHTTPXMLServer createServer(int port) throws OWLRuntimeException {
+        SimpleConfiguration configuration = new SimpleConfiguration() {
+            @Override
+            public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
+                return IndividualNodeSetPolicy.BY_SAME_AS;
+            }
+        };
+        AbstractOWLlinkReasonerConfiguration config = new AbstractOWLlinkReasonerConfiguration();
+
+        config.setSupportedDatatypes(OWL2Datatype.XSD_LONG.getIRI(),
+                OWL2Datatype.XSD_INT.getIRI(),
+                OWL2Datatype.XSD_NON_POSITIVE_INTEGER.getIRI(),
+                OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.getIRI(),
+                OWL2Datatype.XSD_SHORT.getIRI(),
+                OWL2Datatype.OWL_REAL.getIRI());
+        try {
+            Class c = Class.forName("full package class path");
+            OWLReasonerFactory factory = (OWLReasonerFactory) c.newInstance();
+            OWLlinkHTTPXMLServer server = new OWLlinkHTTPXMLServer(factory, config, port, new MyReasonerOWLlinkBridge(factory, config));
+            return server;
+        } catch (Exception e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    static void usage() {
+       ...
+    }
+
+
+    public static void main(String args[]) {
+        int port = 8080;
+        for (int i = 0; i < args.length; i++) {
+            String arg = args[i];
+
+            if (arg.equalsIgnoreCase("-help")) {
+                usage();
+                System.exit(0);
+            } else if (arg.equalsIgnoreCase("-port")) {
+                try {
+                    port = Integer.parseInt(args[++i]);
+                } catch (NumberFormatException e1) {
+                    System.err.println("Invalid port number: " + args[i]);
+                    System.exit(1);
+                }
+            } else {
+                System.err.println("Unrecognized option: " + arg);
+                usage();
+                System.exit(1);
+            }
+        }
+        MyReasonerServerFactory factory = new MyReasonerServerFactory();
+
+        OWLlinkHTTPXMLServer server = factory.createServer(port);
+        server.run();
+    }
+}
+```
 ### References
 
 [1]  Scioscia, F., Ruta, M., Loseto, G., Gramegna, F., Ieva, S., Pinto, A., Di Sciascio, E.: Mini-ME 
