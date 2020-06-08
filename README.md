@@ -21,6 +21,18 @@ The following non-standard inference services are included in the extension:
 * Concept Difference [2]
 * Concept Covering [1]
 
+#### Library usage
+You have to clone the 
+
+The OWLlinkMatchmakingReasonerBridge class must be implemented (overriding all methods declared by OWLlinkMatchmakingReasonerBridgeInterface)
+```java
+public interface OWLlinkMatchmakingReasonerBridgeInterface {
+    void getAbduction(KBRequestWithTwoExpressionOrIndividuals request);
+    void getBonus(KBRequestWithTwoExpressionOrIndividuals request);
+    void getDifference(KBRequestWithTwoExpressionOrIndividuals request);
+    void getContraction(KBRequestWithTwoExpressionOrIndividuals request);
+    void getCovering(GetCovering request);
+}
 
 ### References
 
